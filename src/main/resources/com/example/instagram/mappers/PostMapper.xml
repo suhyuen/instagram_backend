@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.instagram.mappers.PostMapper">
+
+    <resultMap id="postResultMap" type="com.example.instagram.models.Post">
+        <result property="uid" column="uid"/>
+
+        <result property="createdAt" column="createdAt"/>
+        <result property="content" column="content"/>
+
+        <collection property="user" ofType="com.example.instagram.models.User">
+            <result property="uid" column="userUid"/>
+            <result property="userId" column="userId"/>
+        </collection>
+
+    </resultMap>
+    <insert id="writePost">
+        insert into posts_tb(user_uid, content)
+        value(#{userUid}, #{content})
+    </insert>
+
+    <update id="updatePost">
+        update posts_tb set content=#{content}
+        where posts_tb.uid=#{uid} and user_uid=#{userUid}
+    </update>
+
+    <update id="deletePost">
+        UPDATE posts_tb
+        SET deleteyn = 'y'
+        WHERE uid = #{uid} AND user_uid = #{userUid}
+    </update>
+
+    <select id="selectPost" resultMap="postResultMap">
+        SELECT
+        posts_tb.uid As uid,
+        posts_tb.user_uid as userUid,
+        users_tb.id AS userId,
+        posts_tb.created_at AS createdAt,
+        posts_tb.content AS content
+        FROM
+        posts_tb
+        INNER JOIN
+        users_tb ON posts_tb.user_uid = users_tb.uid
+        WHERE
+        posts_tb.deleteyn = 'n'
+        ORDER BY
+        posts_tb.created_at DESC;
+    </select>
+
+    <select id="myPosts" resultMap="postResultMap">
+        SELECT
+        posts_tb.uid As uid,
+        posts_tb.user_uid as userUid,
+        users_tb.id AS userId,
+        posts_tb.created_at AS createdAt,
+        posts_tb.content AS content
+        FROM
+        posts_tb
+        INNER JOIN
+        users_tb ON posts_tb.user_uid = users_tb.uid
+        WHERE
+        posts_tb.user_uid = #{userUid} AND posts_tb.deleteyn = 'n'
+        ORDER BY
+        posts_tb.created_at DESC;
+    </select>
+
+    <select id="detailPost" resultMap="postResultMap">
+        SELECT
+        posts_tb.uid as uid,
+        users_tb.id AS userId,
+        posts_tb.created_at AS createdAt,
+        posts_tb.content AS content
+        FROM
+        posts_tb
+        INNER JOIN
+        users_tb ON posts_tb.user_uid = users_tb.uid
+        WHERE
+        posts_tb.uid = #{uid}
+    </select>
+
+</mapper>
