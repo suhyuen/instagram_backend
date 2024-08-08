@@ -56,6 +56,8 @@ public class SecurityConfig{
                 .requestMatchers("/detailpost").permitAll()
                 .requestMatchers("/selectUser").permitAll()
                 .requestMatchers("/selectcomment").permitAll()
+                .requestMatchers("/likesUser").permitAll()
+                .requestMatchers("/selectUserId").permitAll()
                 .anyRequest().authenticated());
 
         return http.build();

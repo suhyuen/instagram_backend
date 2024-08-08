@@ -6,14 +6,21 @@
 
     <resultMap id="postResultMap" type="com.example.instagram.models.Post">
         <result property="uid" column="uid"/>
-
         <result property="createdAt" column="createdAt"/>
         <result property="content" column="content"/>
+        <result property="likesCount" column="likesCount"/>
 
         <collection property="user" ofType="com.example.instagram.models.User">
             <result property="uid" column="userUid"/>
             <result property="userId" column="userId"/>
         </collection>
+
+        <collection property="likes" ofType="com.example.instagram.models.Likes">
+            <result property="liked" column="liked"/>
+            <result property="userUid" column="userLikes"/>
+        </collection>
+
+
 
     </resultMap>
     <insert id="writePost">
@@ -38,13 +45,22 @@
         posts_tb.user_uid as userUid,
         users_tb.id AS userId,
         posts_tb.created_at AS createdAt,
-        posts_tb.content AS content
+        posts_tb.content AS content,
+        COUNT(likes_tb.uid) AS likesCount
         FROM
         posts_tb
         INNER JOIN
         users_tb ON posts_tb.user_uid = users_tb.uid
+        LEFT JOIN
+        likes_tb ON posts_tb.uid = likes_tb.post_uid
         WHERE
         posts_tb.deleteyn = 'n'
+        GROUP BY
+        posts_tb.uid,
+        posts_tb.user_uid,
+        users_tb.id,
+        posts_tb.created_at,
+        posts_tb.content
         ORDER BY
         posts_tb.created_at DESC;
     </select>
@@ -79,5 +95,7 @@
         WHERE
         posts_tb.uid = #{uid}
     </select>
+
+
 
 </mapper>

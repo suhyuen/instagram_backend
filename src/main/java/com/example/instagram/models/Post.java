@@ -16,5 +16,7 @@ public class Post {
     private String content;
     private LocalDateTime createdAt;
     private String deleteyn;
+    private int likesCount;
     private User user;
+    private Likes likes;
 }

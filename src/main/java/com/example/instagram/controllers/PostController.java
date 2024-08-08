@@ -40,7 +40,6 @@ public class PostController {
     @PostMapping("/selectposts")
     public List<Post> selectposts(@RequestBody PostDto postDto){
         return postService.selectPost(postDto);
-
     }
 
     @PostMapping("/detailpost")

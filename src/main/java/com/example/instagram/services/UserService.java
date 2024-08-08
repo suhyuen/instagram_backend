@@ -70,4 +70,8 @@ public class UserService {
     public List<User> selectAllUser(UserDto userDto){
         return userMapper.selectAllUser(userDto);
     }
-}
+
+    public List<User> selectUserId(UserDto userDto){
+        return userMapper.selectUserId(userDto);
+    }
+ }
