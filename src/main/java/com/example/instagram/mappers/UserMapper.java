@@ -27,4 +27,6 @@ public interface UserMapper {
 
     List<User> selectAllUser(UserDto userDto);
 
+    List<User> selectUserId(UserDto userDto);
+
 }

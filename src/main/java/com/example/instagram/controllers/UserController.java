@@ -56,7 +56,11 @@ public class UserController {
     @PostMapping("/selectUser")
     public List<User> selectuser(@RequestBody UserDto userDto){
         return userService.selectAllUser(userDto);
+    }
 
+    @PostMapping("/selectUserId")
+    public List<User> selectUserId(@RequestBody UserDto userDto){
+        return userService.selectUserId(userDto);
     }
 
 }

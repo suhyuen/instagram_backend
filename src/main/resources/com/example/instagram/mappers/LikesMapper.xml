@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.instagram.mappers.LikesMapper">
+    <insert id="insertLikes">
+        insert into likes_tb(user_uid, post_uid)
+        value(#{userUid}, #{postUid})
+    </insert>
+
+    <select id="likesUser">
+        select user_uid as userUid
+        from likes_tb
+        where post_uid = #{postUid}
+    </select>
+
+
+    <update id="deleteLikes">
+        UPDATE  likes_tb
+        SET deleteyn = 'Y'
+        WHERE uid = #{uid} AND user_uid = #{userUid} AND post_uid = #{postUid}
+    </update>
+
+</mapper>

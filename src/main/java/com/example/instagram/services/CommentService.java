@@ -37,10 +37,10 @@ public class CommentService {
         commentMapper.updateComment(comment);
     }
 
-    public void deleteComment(CommentDto commentDto, int userUId){
+    public void deleteComment(CommentDto commentDto, int userUid){
         Comment comment = Comment.builder()
                 .uid(commentDto.getUid())
-                .userUid(userUId)
+                .userUid(userUid)
                 .build();
         commentMapper.deleteComment(comment);
     }

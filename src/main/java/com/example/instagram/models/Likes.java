@@ -1,16 +1,18 @@
-package com.example.instagram.dtos;
+package com.example.instagram.models;
 
 import lombok.*;
 
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @Builder
-public class PostDto {
+public class Likes {
     private int uid;
     private int userUid;
-    private String content;
+    private int postUid;
+    private String deleteyn;
     private int likesCount;
+    private boolean liked;
 }

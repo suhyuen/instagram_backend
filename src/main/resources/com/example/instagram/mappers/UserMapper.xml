@@ -41,7 +41,11 @@
         select uid, id as userId, user_name as userName, introduce as introduce
         from users_tb
         where deleteyn = 'n'
+    </select>
 
+    <select id="selectUserId">
+        SELECT id as userId from users_tb
+        WHERE id LIKE CONCAT('%', #{userId}, '%')
     </select>
 
 

@@ -5,12 +5,14 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class PostDto {
+public class LikesDto {
     private int uid;
     private int userUid;
-    private String content;
-    private int likesCount;
+    private int postUid;
+    private boolean liked;
+    private String deleteyn;
+
 }
